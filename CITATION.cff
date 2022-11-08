@@ -1,0 +1,27 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: ProProv Appendix
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Kevin
+    family-names: Dennis
+    email: kevindennis@usf.edu
+    affiliation: University of South Florida
+    orcid: 'https://orcid.org/0000-0002-0493-3487'
+  - given-names: Shamaria
+    family-names: Engram
+    email: shamaria.engram@ll.mit.edu
+    affiliation: Lincoln Labs MIT
+  - given-names: Tyler
+    family-names: Kaczmarek
+    email: tyler.kaczmarek@ll.mit.edu
+    affiliation: Lincoln Labs MIT
+  - given-names: Jay
+    family-names: Ligatti
+    email: ligatti@cse.usf.edu
+    affiliation: University of South Florida

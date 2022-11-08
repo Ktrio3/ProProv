@@ -38,4 +38,4 @@ The following files are included:
 
 ![W3C Povenance Data Model](./additional-images-and-tables/w3c-prov-dm.png?raw=true "W3C Povenance Data Model")
 
-![ACDC Povenance Data Model](./additional-images-and-tables/acdc-prov-model.png?raw=true "Test")
+![ACDC Povenance Data Model](./additional-images-and-tables/acdc-prov-model.png?raw=true "ACDC Povenance Data Model")
