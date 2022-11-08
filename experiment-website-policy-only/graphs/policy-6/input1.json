@@ -1,0 +1,19 @@
+{
+    "vertices":[
+        {
+            "name":"students#usf",
+            "type":"dataEntity"
+        },
+        {
+            "name":"registrar#usf",
+            "type": "accountAgent"
+        }
+    ],
+    "edges":[
+        {
+            "source": "students#usf",
+            "relation":"wasAttributedTo",
+            "destination": "registrar#usf"
+        }
+    ]
+}

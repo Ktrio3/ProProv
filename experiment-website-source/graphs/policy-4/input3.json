@@ -1,0 +1,19 @@
+{
+    "vertices":[
+        {
+            "name":"filter",
+            "type":"activity"
+        },
+        {
+            "name":"careerfairattendees#org",
+            "type": "dataEntity"
+        }
+    ],
+    "edges":[
+        {
+            "source": "filter",
+            "relation":"used",
+            "destination": "careerfairattendees#org"
+        }
+    ]
+}

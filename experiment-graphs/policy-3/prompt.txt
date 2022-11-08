@@ -1,0 +1,1 @@
+Write a policy to ensure that the data entity filtered#org was derived from data entity careerfairattendees#org, and  careerfairattendees#org was attributed to account agent recruiter#org.

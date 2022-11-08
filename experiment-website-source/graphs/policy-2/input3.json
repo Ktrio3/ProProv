@@ -1,0 +1,19 @@
+{
+    "vertices":[
+        {
+            "name":"students#hcc",
+            "type":"dataEntity"
+        },
+        {
+            "name":"registrar#hcc",
+            "type": "accountAgent"
+        }
+    ],
+    "edges":[
+        {
+            "source": "students#hcc",
+            "relation":"wasAttributedTo",
+            "destination": "registrar#hcc"
+        }
+    ]
+}

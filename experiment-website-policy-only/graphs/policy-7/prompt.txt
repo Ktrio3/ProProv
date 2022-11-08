@@ -1,0 +1,1 @@
+Write a policy to ensure that for every data entity, if filtered#org was derived from that data entity, then that data entity was attributed to either account agent recruiter#org or account agent registrar#usf.

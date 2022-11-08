@@ -1,0 +1,19 @@
+{
+    "vertices":[
+        {
+            "name":"filtered#org",
+            "type":"dataEntity"
+        },
+        {
+            "name":"careerfairattendees#org",
+            "type":"dataEntity"
+        }
+    ],
+    "edges":[
+        {
+            "source": "filtered#org",
+            "relation":"wasDerivedFrom",
+            "destination": "careerfairattendees#org"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "vertices":[
+        {
+            "name":"students#hcc",
+            "type":"dataEntity"
+        },
+        {
+            "name":"filtered#org",
+            "type": "dataEntity"
+        }
+    ],
+    "edges":[
+        {
+            "source": "filtered#org",
+            "relation":"wasDerivedFrom",
+            "destination": "students#hcc"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "vertices":[
+        {
+            "name":"filter",
+            "type":"activity"
+        },
+        {
+            "name":"sgx#intel",
+            "type": "nodeAgent"
+        },
+        {
+            "name":"recruiter#org",
+            "type": "accountAgent"
+        }
+    ],
+    "edges":[
+        {
+            "source": "filter",
+            "relation":"wasAssociatedWith",
+            "destination": "sgx#intel"
+        },
+        {
+            "source": "sgx#intel",
+            "relation":"actedOnBehalfOf",
+            "destination": "recruiter#org"
+        }
+    ]
+}

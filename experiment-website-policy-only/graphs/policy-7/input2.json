@@ -1,0 +1,46 @@
+{
+    "vertices":[
+        {
+            "name":"careerfairattendees#org",
+            "type":"dataEntity"
+        },
+        {
+            "name":"filtered#org",
+            "type": "dataEntity"
+        },
+        {
+            "name":"recruiter#org",
+            "type": "accountAgent"
+        },
+        {
+            "name":"students#hcc",
+            "type": "dataEntity"
+        },
+        {
+            "name":"registrar#hcc",
+            "type": "accountAgent"
+        }
+    ],
+    "edges":[
+        {
+            "source": "filtered#org",
+            "relation":"wasDerivedFrom",
+            "destination": "careerfairattendees#org"
+        },
+        {
+            "source": "careerfairattendees#org",
+            "relation":"wasAttributedTo",
+            "destination": "recruiter#org"
+        },
+        {
+            "source": "filtered#org",
+            "relation":"wasDerivedFrom",
+            "destination": "students#hcc"
+        },
+        {
+            "source": "students#hcc",
+            "relation":"wasAttributedTo",
+            "destination": "registrar#hcc"
+        }
+    ]
+}

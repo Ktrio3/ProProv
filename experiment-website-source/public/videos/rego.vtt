@@ -1,0 +1,462 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.160 --> 00:00:02.240
+This training session will cover Rego.
+
+00:00:03.280 --> 00:00:06.320
+Rego is a declarative language&nbsp;
+for defining policies.&nbsp;&nbsp;
+
+00:00:06.960 --> 00:00:11.280
+Rego policies are expressed as&nbsp;
+predicates over structured data.&nbsp;&nbsp;
+
+00:00:11.280 --> 00:00:15.040
+This structured data is represented&nbsp;
+using javascript object notation.&nbsp;&nbsp;
+
+00:00:15.600 --> 00:00:20.640
+This training covers the basic Rego features that&nbsp;
+will be needed to implement provenance policies.
+
+00:00:21.360 --> 00:00:26.720
+Policies in Rego begin with a head, which is&nbsp;
+the name of the policy. The head is followed&nbsp;&nbsp;
+
+00:00:26.720 --> 00:00:31.040
+by the body, which defines a list of&nbsp;
+expressions inside a pair of braces.&nbsp;&nbsp;
+
+00:00:31.600 --> 00:00:35.680
+Each expression in the body is evaluated&nbsp;
+to determine if the policy is true&nbsp;&nbsp;
+
+00:00:35.680 --> 00:00:44.080
+or false. For example, policy1 on the right is&nbsp;
+true if all of the expressions 1 to n are true.
+
+00:00:44.080 --> 00:00:48.560
+Rego provides many operators seen in&nbsp;
+other languages such as arithmetic,&nbsp;&nbsp;
+
+00:00:48.560 --> 00:00:54.320
+assignment, or equality. Note that variables are&nbsp;
+immutable meaning they cannot be changed after&nbsp;&nbsp;
+
+00:00:54.320 --> 00:01:00.000
+their initial assignment. The example policy&nbsp;
+named final_policy demonstrates comments,&nbsp;&nbsp;
+
+00:01:00.000 --> 00:01:06.320
+assignment, arithmetic, and equality. Final_policy&nbsp;
+will always evaluate to true in this case.
+
+00:01:07.920 --> 00:01:13.040
+In Rego, arguments may be optionally&nbsp;
+passed to policies. The syntax is similar&nbsp;&nbsp;
+
+00:01:13.040 --> 00:01:18.720
+to functions in many other languages.&nbsp;
+For example, the following policy isZero&nbsp;&nbsp;
+
+00:01:18.720 --> 00:01:22.480
+returns true if the argument x is equal to zero.
+
+00:01:23.600 --> 00:01:29.360
+Input is created using javascript object&nbsp;
+notation or JSON. Provenance graphs can be&nbsp;&nbsp;
+
+00:01:29.360 --> 00:01:35.440
+defined as a set of vertices and edges. Each&nbsp;
+vertex contains a name and a type and each&nbsp;&nbsp;
+
+00:01:35.440 --> 00:01:42.080
+edge contains a relation type, a source, and a&nbsp;
+destination. For example, the provenance graph&nbsp;&nbsp;
+
+00:01:42.080 --> 00:01:47.760
+below can be defined using the following JSON. The&nbsp;
+graph has two vertices and an edge between them.
+
+00:01:48.480 --> 00:01:55.440
+JSON data consists of a name and value pair. For&nbsp;
+example, name colon Average is one such pair.&nbsp;&nbsp;
+
+00:01:55.440 --> 00:01:59.120
+There are two key-value types needed&nbsp;
+for defining provenance graphs:&nbsp;&nbsp;
+
+00:01:59.120 --> 00:02:05.120
+objects and arrays. Braces define an object and&nbsp;
+values can be accessed using the dot operator.&nbsp;&nbsp;
+
+00:02:05.680 --> 00:02:10.400
+Brackets define an array; the usual&nbsp;
+bracket notation can be used to access&nbsp;&nbsp;
+
+00:02:10.400 --> 00:02:17.120
+values in the array. For example,&nbsp;
+input dot vertices bracket 0 dot name&nbsp;&nbsp;
+
+00:02:17.120 --> 00:02:21.840
+is Average in the input on the right.&nbsp;
+This notation can be used in Rego.
+
+00:02:22.880 --> 00:02:27.680
+Now let's cover some common scenarios. The&nbsp;
+negation policy asserts that a policy or&nbsp;&nbsp;
+
+00:02:27.680 --> 00:02:33.520
+expression is not true. In rego, this can be&nbsp;
+done using the not keyword. The not keyword&nbsp;&nbsp;
+
+00:02:33.520 --> 00:02:39.600
+can be followed by a policy name or expression. In&nbsp;
+the left example, the not keyword is used with an&nbsp;&nbsp;
+
+00:02:39.600 --> 00:02:46.000
+expression, while in the right example, it is used&nbsp;
+with a policy name. These examples are equivalent.
+
+00:02:46.560 --> 00:02:52.000
+The conjunction policy, also called "and",&nbsp;
+asserts that multiple expressions are true.&nbsp;&nbsp;
+
+00:02:52.000 --> 00:02:59.280
+Conjunction is implicit in rego. For final_policy&nbsp;
+to be true, both e1 and e2 must be true.
+
+00:02:59.280 --> 00:03:04.960
+The disjunction policy, also called "or",&nbsp;
+asserts that either expression e1 is true,&nbsp;&nbsp;
+
+00:03:04.960 --> 00:03:11.360
+e2 is true, or both e1 and e2 are true.&nbsp;
+For disjunction in rego. define two&nbsp;&nbsp;
+
+00:03:11.360 --> 00:03:17.280
+policies with the same name. For example, the&nbsp;
+following two policies are named final_policy.&nbsp;&nbsp;
+
+00:03:17.280 --> 00:03:21.760
+If either instance is true, then&nbsp;
+final_policy will evaluate to true.
+
+00:03:22.720 --> 00:03:28.240
+The existential policy asserts that an&nbsp;
+expression is true for some variable x.&nbsp;&nbsp;
+
+00:03:28.240 --> 00:03:32.960
+Variable x can be used in that&nbsp;
+expression. To define such a policy,&nbsp;&nbsp;
+
+00:03:32.960 --> 00:03:38.560
+the some keyword can be used. The following&nbsp;
+policy requires there exists some vertex&nbsp;&nbsp;
+
+00:03:38.560 --> 00:03:45.840
+x named Average. The vertex can be used as a&nbsp;
+placeholder to access arrays, as in this example.
+
+00:03:46.400 --> 00:03:52.720
+The universal policy asserts that an expression&nbsp;
+is true for every possible variable x. Variable&nbsp;&nbsp;
+
+00:03:52.720 --> 00:03:58.560
+x can be used in that expression. Rego does&nbsp;
+not explicitly support this, however, it can be&nbsp;&nbsp;
+
+00:03:58.560 --> 00:04:05.520
+accomplished by defining an existential policy and&nbsp;
+negating that policy. Final_policy requires that&nbsp;&nbsp;
+
+00:04:05.520 --> 00:04:12.640
+for all vertices x, x is not named Average. This&nbsp;
+is done by defining averageExists, a helper policy&nbsp;&nbsp;
+
+00:04:12.640 --> 00:04:19.680
+which requires there exists some x named Average.&nbsp;
+Final_policy then negates this helper policy.
+
+00:04:20.720 --> 00:04:26.400
+The edge policy asserts there is an edge between&nbsp;
+two vertices with a certain label or relation.&nbsp;&nbsp;
+
+00:04:26.960 --> 00:04:33.520
+Possible labels are: was attributed to,&nbsp;
+was derived from, was generated by, used,&nbsp;&nbsp;
+
+00:04:34.080 --> 00:04:41.440
+acted on behalf of, was associated with, or&nbsp;
+was informed by. While rego does not explicitly&nbsp;&nbsp;
+
+00:04:41.440 --> 00:04:46.960
+support this either, it can be accomplished using&nbsp;
+the some keyword and the equality operator. The&nbsp;&nbsp;
+
+00:04:46.960 --> 00:04:53.600
+example policy requires an edge with label used&nbsp;
+to exist between the Average and SalaryB vertices.
+
+00:04:54.160 --> 00:04:59.920
+To write a policy that combines the existential&nbsp;
+and universal policies in Rego, the policy&nbsp;&nbsp;
+
+00:04:59.920 --> 00:05:06.080
+argument feature is required. The following&nbsp;
+slide has an example. The following policy&nbsp;&nbsp;
+
+00:05:06.080 --> 00:05:12.720
+combines universal and existential policies: for&nbsp;
+all node agents, there exists some outgoing edge.
+
+00:05:13.360 --> 00:05:17.200
+The following Rego implements&nbsp;
+this policy. At the bottom,&nbsp;&nbsp;
+
+00:05:17.200 --> 00:05:23.600
+the hasEdges policy checks if vertex x has&nbsp;
+an outgoing edge. The nodeNoEdge policy&nbsp;&nbsp;
+
+00:05:23.600 --> 00:05:29.120
+returns true if there exists some node agent and&nbsp;
+that node agent has no edges. This is done by&nbsp;&nbsp;
+
+00:05:29.120 --> 00:05:36.320
+passing the node agent to the hasEdges policy and&nbsp;
+negating the result. Finally, similar to before,&nbsp;&nbsp;
+
+00:05:36.320 --> 00:05:41.920
+final_policy negates the nodeNoEdge policy.&nbsp;
+If there is no node agent without an edge,&nbsp;&nbsp;
+
+00:05:41.920 --> 00:05:47.760
+then all node agents must have at least one&nbsp;
+outgoing edge, and final_policy is thus true.
+
+00:05:49.680 --> 00:05:52.240
+Now let's go over some provenance examples.
+
+00:05:52.240 --> 00:05:56.960
+The following interface will be provided to&nbsp;
+implement your rego policies. The left section&nbsp;&nbsp;
+
+00:05:56.960 --> 00:06:02.960
+provides a code editor with syntax highlighting&nbsp;
+to define your policies. Note your final answer&nbsp;&nbsp;
+
+00:06:02.960 --> 00:06:08.160
+should be named final_policy. This will be&nbsp;
+the policy used for determining correctness.&nbsp;&nbsp;
+
+00:06:08.800 --> 00:06:14.000
+On the right, the question and a few example&nbsp;
+inputs are provided. The inputs are provided&nbsp;&nbsp;
+
+00:06:14.000 --> 00:06:19.120
+in the JSON format seen earlier. You may switch&nbsp;
+between the different examples using the tabs&nbsp;&nbsp;
+
+00:06:19.120 --> 00:06:24.800
+above. Each input contains a note saying if&nbsp;
+it should or should not satisfy the policy.&nbsp;&nbsp;
+
+00:06:25.440 --> 00:06:30.240
+Finally, once you are ready to test your&nbsp;
+policy, you may use the evaluate button below.&nbsp;&nbsp;
+
+00:06:30.240 --> 00:06:33.840
+If your policy is correct, you will&nbsp;
+be presented with a correct message.
+
+00:06:35.360 --> 00:06:41.520
+Write a policy to ensure that activity&nbsp;
+Average used data entity SalaryB. First,&nbsp;&nbsp;
+
+00:06:41.520 --> 00:06:47.840
+let's take a look at the sample input. Input 1&nbsp;
+has an edge between Average and SalaryB, which&nbsp;&nbsp;
+
+00:06:47.840 --> 00:06:56.720
+is labeled used, seen here. As the hint suggests,&nbsp;
+this input should satisfy the policy. Inputs 2&nbsp;&nbsp;
+
+00:06:56.720 --> 00:07:01.840
+and 4 should also satisfy the&nbsp;
+policy, while 3 and 5 do not.&nbsp;&nbsp;
+
+00:07:03.600 --> 00:07:08.640
+Since we need to check for the existence of an&nbsp;
+edge, we begin with the some keyword to create&nbsp;&nbsp;
+
+00:07:08.640 --> 00:07:15.920
+variable i like so. I represents&nbsp;
+some edge in the input. Using i,&nbsp;&nbsp;
+
+00:07:15.920 --> 00:07:21.600
+we place requirements on the edge by using the&nbsp;
+input keyword and accessing the edges array,&nbsp;&nbsp;
+
+00:07:27.120 --> 00:07:36.560
+like so. In this case, we require that the&nbsp;
+relation be used, we require that the source&nbsp;&nbsp;
+
+00:07:36.560 --> 00:07:43.840
+be Average, and for the destination to&nbsp;
+be SalaryB. We implement this like so.&nbsp;&nbsp;
+
+00:07:56.720 --> 00:07:58.480
+And finally the destination.
+
+00:08:02.080 --> 00:08:07.600
+And perfect. When we click evaluate, each&nbsp;
+possible value for i will be used until&nbsp;&nbsp;
+
+00:08:07.600 --> 00:08:12.880
+one is found that makes all three&nbsp;
+equalities true. If none is found,&nbsp;&nbsp;
+
+00:08:12.880 --> 00:08:17.440
+the policy evaluates to false. In this&nbsp;
+case, our policy works correctly for&nbsp;&nbsp;
+
+00:08:17.440 --> 00:08:21.840
+all five inputs and you can see that we&nbsp;
+have received the correct message here.
+
+00:08:22.880 --> 00:08:28.400
+Write a policy to ensure that data entity&nbsp;
+AverageSalary was not derived from SalaryC.&nbsp;&nbsp;
+
+00:08:29.680 --> 00:08:33.040
+For this policy, we need to check&nbsp;
+that, for all data entities,&nbsp;&nbsp;
+
+00:08:33.040 --> 00:08:39.120
+AverageSalary was not derived from SalaryC.&nbsp;
+Since this is a universal policy, we need to&nbsp;&nbsp;
+
+00:08:39.120 --> 00:08:46.640
+first define the opposite existential policy;&nbsp;
+that is, AverageSalary is derived from SalaryC.&nbsp;&nbsp;
+
+00:08:47.840 --> 00:08:56.000
+The existential policy named derivedSalC is very&nbsp;
+similar to the previous example. Some x is used to&nbsp;&nbsp;
+
+00:08:56.000 --> 00:09:02.640
+find if there exists an edge with the correct&nbsp;
+relation source and destination. To finish,&nbsp;&nbsp;
+
+00:09:02.640 --> 00:09:10.240
+final_policy negates derivedSalC, returning true&nbsp;
+if AverageSalary was not derived from SalaryC.
+
+00:09:11.440 --> 00:09:18.720
+Write a policy to ensure that activity Average&nbsp;
+used key entity KeyB and KeyB was attributed to&nbsp;&nbsp;
+
+00:09:18.720 --> 00:09:24.800
+account agent Bob. For this policy, there are&nbsp;
+two different edges that must be checked for:&nbsp;&nbsp;
+
+00:09:24.800 --> 00:09:27.520
+one labeled used between Average and KeyB&nbsp;&nbsp;
+
+00:09:28.160 --> 00:09:35.280
+and one labeled was attributed to between KeyB and&nbsp;
+Bob. Since two different edges must be checked,&nbsp;&nbsp;
+
+00:09:35.280 --> 00:09:40.560
+the some keyword is used to declare an&nbsp;
+x and a y. The x is used to find if the&nbsp;&nbsp;
+
+00:09:40.560 --> 00:09:47.440
+edge between Average and KeyB exists, and&nbsp;
+y is used to find the edge between KeyB and&nbsp;&nbsp;
+
+00:09:47.440 --> 00:09:53.600
+Bob. If an x and y can be found that makes these&nbsp;
+equalities true, then final_policy returns true.
+
+00:09:54.480 --> 00:09:59.520
+Write a policy to ensure that there is some&nbsp;
+data entity that AverageSalary was derived from.&nbsp;&nbsp;
+
+00:10:00.320 --> 00:10:05.440
+This example requires that an edge, starting&nbsp;
+at AverageSalary, ends in a data entity.&nbsp;&nbsp;
+
+00:10:06.080 --> 00:10:11.200
+This requires us to check the vertex type,&nbsp;
+which can only be found in the vertex array.&nbsp;&nbsp;
+
+00:10:11.840 --> 00:10:15.280
+To do this, the some keyword creates an x variable&nbsp;&nbsp;
+
+00:10:15.280 --> 00:10:22.080
+to represent the edge and a y to represent the&nbsp;
+vertex. The policy begins by finding an x such&nbsp;&nbsp;
+
+00:10:22.080 --> 00:10:29.680
+that the edge is labeled was derived from and&nbsp;
+begins at salary. Next, both x and y are used&nbsp;&nbsp;
+
+00:10:29.680 --> 00:10:35.760
+to find the destination vertex by comparing&nbsp;
+the name. Finally, the vertex type is checked.
+
+00:10:36.960 --> 00:10:43.040
+Write a policy to ensure for every data entity,&nbsp;
+if activity Average used the data entity,y&nbsp;&nbsp;
+
+00:10:43.040 --> 00:10:49.760
+then the data entity was attributed to either&nbsp;
+Bob, Alice, or Mallory. This policy requires&nbsp;&nbsp;
+
+00:10:49.760 --> 00:10:54.480
+all of the techniques seen earlier.&nbsp;
+First, this is a universal policy&nbsp;&nbsp;
+
+00:10:54.480 --> 00:11:01.760
+as we must check every data entity. Thus, we first&nbsp;
+need the opposite existential policy; that is,&nbsp;&nbsp;
+
+00:11:01.760 --> 00:11:08.480
+one of the data entities was attributed to someone&nbsp;
+other than Bob, Alice, or Mallory. A helper policy&nbsp;&nbsp;
+
+00:11:08.480 --> 00:11:15.600
+notBAM will check for this. We will need to&nbsp;
+check two edges and a vertex for this policy.&nbsp;&nbsp;
+
+00:11:16.240 --> 00:11:22.560
+First, we use x to find the used edge from average&nbsp;
+and then use y to find the destination vertex.&nbsp;&nbsp;
+
+00:11:23.360 --> 00:11:30.480
+Y is then used to check the vertex type and is&nbsp;
+then used with z to find an outgoing edge. Z&nbsp;&nbsp;
+
+00:11:30.480 --> 00:11:36.000
+is used to check the edge label and that the&nbsp;
+destination is not Bob, Alice, or Mallory.&nbsp;&nbsp;
+
+00:11:36.800 --> 00:11:41.840
+To finish, the final_policy&nbsp;
+negates the notBAM policy.
+
+00:11:43.760 --> 00:11:48.720
+In the case of an incorrect policy, an&nbsp;
+error message will be presented. Syntax&nbsp;&nbsp;
+
+00:11:48.720 --> 00:11:52.960
+or other errors in the code will be presented&nbsp;
+with a line number to help find the error.&nbsp;&nbsp;
+
+00:11:53.760 --> 00:12:00.640
+If the policy is valid but incorrect the&nbsp;
+warning will list the inputs that did not pass.
+

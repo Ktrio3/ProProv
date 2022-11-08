@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="experiments-proprov:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/experiments_proprov_jar</output-path>
+    <root id="archive" name="experiments-proprov.jar">
+      <element id="module-output" name="experiments-proprov" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jackson-databind-2.13.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jackson-annotations-2.13.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jackson-core-2.13.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,19 @@
+{
+    "vertices":[
+        {
+            "name":"filter",
+            "type":"activity"
+        },
+        {
+            "name":"students#usf",
+            "type": "dataEntity"
+        }
+    ],
+    "edges":[
+        {
+            "source": "filter",
+            "relation":"used",
+            "destination": "students#usf"
+        }
+    ]
+}

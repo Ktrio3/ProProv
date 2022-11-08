@@ -1,0 +1,19 @@
+{
+    "vertices":[
+        {
+            "name":"filter",
+            "type":"activity"
+        },
+        {
+            "name":"sgx#intel",
+            "type": "nodeAgent"
+        }
+    ],
+    "edges":[
+        {
+            "source": "filter",
+            "relation":"wasAssociatedWith",
+            "destination": "sgx#intel"
+        }
+    ]
+}

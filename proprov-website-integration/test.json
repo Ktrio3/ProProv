@@ -1,0 +1,8 @@
+{"nodeType":"NegationPolicy",
+  "policy":{
+    "nodeType":"EdgePolicy",
+    "relation":"wasAttributedTo",
+    "src":"Students#usf",
+    "dst":"Recruiter#org"
+  }
+}

@@ -1,0 +1,1 @@
+Write a policy to ensure that for every data entity there is some account agent such that the data entity was attributed to that account agent.

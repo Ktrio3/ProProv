@@ -1,0 +1,113 @@
+{
+    "vertices":[
+        {
+            "name":"students#hcc",
+            "type":"dataEntity"
+        },
+        {
+            "name":"careerfairattendees#org",
+            "type":"dataEntity"
+        },
+        {
+            "name":"filtercontract",
+            "type":"contractEntity"
+        },
+        {
+            "name":"filter",
+            "type":"activity"
+        },
+        {
+            "name":"sgx#intel",
+            "type":"nodeAgent"
+        },
+        {
+            "name":"filtered#org",
+            "type":"dataEntity"
+        },
+        {
+            "name":"registrar#hcc",
+            "type":"accountAgent"
+        },
+        {
+            "name":"recruiter#org",
+            "type":"accountAgent"
+        }
+    ],
+    "edges":[
+        {
+            "source": "filtered#org",
+            "relation":"wasGeneratedBy",
+            "destination": "filter"
+        },
+        {
+            "source": "filtered#org",
+            "relation":"wasDerivedFrom",
+            "destination": "students#hcc"
+        },
+        {
+            "source": "filtered#org",
+            "relation":"wasDerivedFrom",
+            "destination": "careerfairattendees#org"
+        },
+        {
+            "source": "filtered#org",
+            "relation":"wasDerivedFrom",
+            "destination": "filtercontract"
+        },
+        {
+            "source": "filtered#org",
+            "relation":"wasAttributedTo",
+            "destination": "sgx#intel"
+        },
+        {
+            "source": "filtered#org",
+            "relation":"wasAttributedTo",
+            "destination": "recruiter#org"
+        },
+        {
+            "source": "filter",
+            "relation":"wasAssociatedWith",
+            "destination": "sgx#intel"
+        },
+        {
+            "source": "filter",
+            "relation":"used",
+            "destination": "filtercontract"
+        },
+        {
+            "source": "filter",
+            "relation":"used",
+            "destination": "careerfairattendees#org"
+        },
+        {
+            "source": "filter",
+            "relation":"used",
+            "destination": "students#hcc"
+        },
+        {
+            "source": "students#hcc",
+            "relation":"wasAttributedTo",
+            "destination": "registrar#hcc"
+        },
+        {
+            "source": "students#hcc",
+            "relation":"wasAttributedTo",
+            "destination": "recruiter#org"
+        },
+        {
+            "source": "careerfairattendees#org",
+            "relation":"wasAttributedTo",
+            "destination": "recruiter#org"
+        },
+        {
+            "source": "filtercontract",
+            "relation":"wasAttributedTo",
+            "destination": "sgx#intel"
+        },
+        {
+            "source": "sgx#intel",
+            "relation":"actedOnBehalfOf",
+            "destination": "recruiter#org"
+        }
+    ]
+}

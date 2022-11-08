@@ -1,0 +1,19 @@
+{
+    "vertices":[
+        {
+            "name":"careerfairattendees#org",
+            "type":"dataEntity"
+        },
+        {
+            "name":"recruiter#org",
+            "type":"accountAgent"
+        }
+    ],
+    "edges":[
+        {
+            "source": "careerfairattendees#org",
+            "relation":"wasAttributedTo",
+            "destination": "recruiter#org"
+        }
+    ]
+}

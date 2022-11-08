@@ -1,0 +1,1 @@
+Write a policy to ensure that there is some activity that was associated with a node agent sgx#intel, and sgx#intel acted on behalf of the account agent recruiter#org.

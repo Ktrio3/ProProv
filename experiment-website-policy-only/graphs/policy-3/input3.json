@@ -1,0 +1,28 @@
+{
+    "vertices":[
+        {
+            "name":"filtered#org",
+            "type":"dataEntity"
+        },
+        {
+            "name":"careerfairattendees#org",
+            "type":"dataEntity"
+        },
+        {
+            "name":"recruiter#org",
+            "type":"accountAgent"
+        }
+    ],
+    "edges":[
+        {
+            "source": "careerfairattendees#org",
+            "relation":"wasAttributedTo",
+            "destination": "recruiter#org"
+        },
+        {
+            "source": "filtered#org",
+            "relation":"wasDerivedFrom",
+            "destination": "careerfairattendees#org"
+        }
+    ]
+}

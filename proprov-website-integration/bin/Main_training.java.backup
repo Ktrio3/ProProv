@@ -1,0 +1,1120 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Main{
+
+	public static void main(String[] args) {
+		String file;
+		int task;
+		if (args.length > 1) {
+			task = Integer.parseInt(args[0]);
+			file = args[1];
+		}
+		else{
+			System.out.println("No file name or task number provided.");
+			return;
+		}
+
+		if(task == 1)
+		{
+			task1(file);
+		}
+		else if(task == 2)
+		{
+			task2(file);
+		}
+		else if(task == 3)
+		{
+			task3(file);
+		}
+		else if(task == 4)
+		{
+			task4(file);
+		}
+		else if(task == 5)
+		{
+			task5(file);
+		}
+		else if(task == 6)
+		{
+			task6(file);
+		}
+		else if(task == 7)
+		{
+			task7(file);
+		}
+
+	}
+
+	public static void task1(String file) {
+
+		//create provenance graphs
+		ProvenanceGraph pg1 = new ProvenanceGraph();
+		pg1.addVertex("Average", "activity");
+		pg1.addVertex("SalaryB", "dataEntity");
+		pg1.addEdge("Average", "used", "SalaryB");
+
+		ProvenanceGraph pg2 = new ProvenanceGraph();
+		pg2.addVertex("Average", "activity");
+		pg2.addVertex("SalaryB", "dataEntity");
+		pg2.addVertex("SalaryM", "dataEntity");
+		pg2.addEdge("Average", "used", "SalaryB");
+		pg2.addEdge("Average", "used", "SalaryM");
+
+		ProvenanceGraph pg3 = new ProvenanceGraph();
+		pg3.addVertex("SalaryM", "dataEntity");
+		pg3.addVertex("Average", "activity");
+		pg3.addEdge("Average", "used", "SalaryM");
+
+		ProvenanceGraph pg4 = new ProvenanceGraph();
+		pg4.addVertex("Mallory", "accountAgent");
+		pg4.addVertex("Alice", "accountAgent");
+		pg4.addVertex("Bob", "accountAgent");
+		pg4.addVertex("SCE", "nodeAgent");
+		pg4.addVertex("SalaryM", "dataEntity");
+		pg4.addVertex("KeyM", "keyEntity");
+		pg4.addVertex("SalaryA", "dataEntity");
+		pg4.addVertex("KeyA", "keyEntity");
+		pg4.addVertex("SalaryB", "dataEntity");
+		pg4.addVertex("KeyB", "keyEntity");
+		pg4.addVertex("AverageContract", "contractEntity");
+		pg4.addVertex("KeySCE", "keyEntity");
+		pg4.addVertex("Average", "Activity");
+		pg4.addVertex("AverageSalary", "dataEntity");
+		pg4.addEdge("SalaryM", "wasAttributedTo", "Mallory");
+		pg4.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg4.addEdge("SalaryB", "wasAttributedTo", "Bob");
+		pg4.addEdge("KeyM", "wasAttributedTo", "Mallory");
+		pg4.addEdge("KeyA", "wasAttributedTo", "Alice");
+		pg4.addEdge("KeyB", "wasAttributedTo", "Bob");
+		pg4.addEdge("AverageContract", "wasAttributedTo", "SCE");
+		pg4.addEdge("KeySCE", "wasAttributedTo", "SCE");
+		pg4.addEdge("SCE", "actedOnBehalfOf", "Bob");
+		pg4.addEdge("Average", "used", "SalaryM");
+		pg4.addEdge("Average", "used", "KeyM");
+		pg4.addEdge("Average", "used", "SalaryA");
+		pg4.addEdge("Average", "used", "KeyA");
+		pg4.addEdge("Average", "used", "SalaryB");
+		pg4.addEdge("Average", "used", "KeyB");
+		pg4.addEdge("Average", "used", "AverageContract");
+		pg4.addEdge("Average", "used", "KeySCE");
+		pg4.addEdge("Average", "wasAssociatedWith", "SCE");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyM");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryA");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyA");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryB");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyB");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "AverageContract");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeySCE");
+		pg4.addEdge("AverageSalary", "wasGeneratedBy", "Average");
+		pg4.addEdge("AverageSalary", "wasAttributedTo", "Bob");
+		pg4.addEdge("AverageSalary", "wasAttributedTo", "SCE");
+
+		ProvenanceGraph pg5 = new ProvenanceGraph();
+		pg5.addVertex("Mallory", "accountAgent");
+		pg5.addVertex("Alice", "accountAgent");
+		pg5.addVertex("Bob", "accountAgent");
+		pg5.addVertex("SCE", "nodeAgent");
+		pg5.addVertex("SalaryM", "dataEntity");
+		pg5.addVertex("KeyM", "keyEntity");
+		pg5.addVertex("SalaryA", "dataEntity");
+		pg5.addVertex("KeyA", "keyEntity");
+		pg5.addVertex("KeyB", "keyEntity");
+		pg5.addVertex("AverageContract", "contractEntity");
+		pg5.addVertex("KeySCE", "keyEntity");
+		pg5.addVertex("Average", "Activity");
+		pg5.addVertex("AverageSalary", "dataEntity");
+		pg5.addEdge("SalaryM", "wasAttributedTo", "Mallory");
+		pg5.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg5.addEdge("KeyM", "wasAttributedTo", "Mallory");
+		pg5.addEdge("KeyA", "wasAttributedTo", "Alice");
+		pg5.addEdge("KeyB", "wasAttributedTo", "Bob");
+		pg5.addEdge("AverageContract", "wasAttributedTo", "SCE");
+		pg5.addEdge("KeySCE", "wasAttributedTo", "SCE");
+		pg5.addEdge("SCE", "actedOnBehalfOf", "Bob");
+		pg5.addEdge("Average", "used", "SalaryM");
+		pg5.addEdge("Average", "used", "KeyM");
+		pg5.addEdge("Average", "used", "SalaryA");
+		pg5.addEdge("Average", "used", "KeyA");
+		pg5.addEdge("Average", "used", "KeyB");
+		pg5.addEdge("Average", "used", "AverageContract");
+		pg5.addEdge("Average", "used", "KeySCE");
+		pg5.addEdge("Average", "wasAssociatedWith", "SCE");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyM");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryA");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyA");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyB");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "AverageContract");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeySCE");
+		pg5.addEdge("AverageSalary", "wasGeneratedBy", "Average");
+		pg5.addEdge("AverageSalary", "wasAttributedTo", "Bob");
+		pg5.addEdge("AverageSalary", "wasAttributedTo", "SCE");
+
+		Policy p = parsePolicy(file);
+
+		if(!checkIncompletePolicy(p)) {
+			boolean r1 = p.evaluate(pg1);
+			boolean r2 = p.evaluate(pg2);
+			boolean r3 = p.evaluate(pg3);
+			boolean r4 = p.evaluate(pg4);
+			boolean r5 = p.evaluate(pg5);
+			List<String> errors = new ArrayList<>();
+
+			if(!r1) {
+				errors.add("1s");
+			}
+			if(!r2) {
+				errors.add("2s");
+			}
+			if(r3) {
+				errors.add("3v");
+			}
+			if(!r4) {
+				errors.add("4s");
+			}
+			if(r5) {
+				errors.add("5v");
+			}
+
+			if(!errors.isEmpty()) {
+				System.out.print("Incorrect: ");
+				for(String s: errors) {
+					System.out.print(s + ",");
+				}
+				System.out.println();
+			}else {
+				System.out.println("Correct");
+			}
+
+		}else {
+			System.out.println("Incomplete");
+		}
+	}
+
+	public static void task2(String file) {
+
+		//create provenance graphs
+		ProvenanceGraph pg1 = new ProvenanceGraph();
+		pg1.addVertex("AverageSalary", "dataEntity");
+		pg1.addVertex("SalaryM", "dataEntity");
+		pg1.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+
+		ProvenanceGraph pg2 = new ProvenanceGraph();
+		pg2.addVertex("AverageSalary", "dataEntity");
+		pg2.addVertex("SalaryB", "dataEntity");
+		pg2.addVertex("SalaryM", "dataEntity");
+		pg2.addEdge("AverageSalary", "wasDerivedFrom", "SalaryB");
+		pg2.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+
+		ProvenanceGraph pg3 = new ProvenanceGraph();
+		pg3.addVertex("SalaryC", "dataEntity");
+		pg3.addVertex("AverageSalary", "dataEntity");
+		pg3.addEdge("AverageSalary", "wasDerivedFrom", "SalaryC");
+
+		ProvenanceGraph pg4 = new ProvenanceGraph();
+		pg4.addVertex("Mallory", "accountAgent");
+		pg4.addVertex("Alice", "accountAgent");
+		pg4.addVertex("Bob", "accountAgent");
+		pg4.addVertex("SCE", "nodeAgent");
+		pg4.addVertex("SalaryM", "dataEntity");
+		pg4.addVertex("KeyM", "keyEntity");
+		pg4.addVertex("SalaryA", "dataEntity");
+		pg4.addVertex("KeyA", "keyEntity");
+		pg4.addVertex("SalaryB", "dataEntity");
+		pg4.addVertex("KeyB", "keyEntity");
+		pg4.addVertex("AverageContract", "contractEntity");
+		pg4.addVertex("KeySCE", "keyEntity");
+		pg4.addVertex("Average", "Activity");
+		pg4.addVertex("AverageSalary", "dataEntity");
+		pg4.addEdge("SalaryM", "wasAttributedTo", "Mallory");
+		pg4.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg4.addEdge("SalaryB", "wasAttributedTo", "Bob");
+		pg4.addEdge("KeyM", "wasAttributedTo", "Mallory");
+		pg4.addEdge("KeyA", "wasAttributedTo", "Alice");
+		pg4.addEdge("KeyB", "wasAttributedTo", "Bob");
+		pg4.addEdge("AverageContract", "wasAttributedTo", "SCE");
+		pg4.addEdge("KeySCE", "wasAttributedTo", "SCE");
+		pg4.addEdge("SCE", "actedOnBehalfOf", "Bob");
+		pg4.addEdge("Average", "used", "SalaryM");
+		pg4.addEdge("Average", "used", "KeyM");
+		pg4.addEdge("Average", "used", "SalaryA");
+		pg4.addEdge("Average", "used", "KeyA");
+		pg4.addEdge("Average", "used", "SalaryB");
+		pg4.addEdge("Average", "used", "KeyB");
+		pg4.addEdge("Average", "used", "AverageContract");
+		pg4.addEdge("Average", "used", "KeySCE");
+		pg4.addEdge("Average", "wasAssociatedWith", "SCE");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyM");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryA");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyA");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryB");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyB");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "AverageContract");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeySCE");
+		pg4.addEdge("AverageSalary", "wasGeneratedBy", "Average");
+		pg4.addEdge("AverageSalary", "wasAttributedTo", "Bob");
+		pg4.addEdge("AverageSalary", "wasAttributedTo", "SCE");
+
+		ProvenanceGraph pg5 = new ProvenanceGraph();
+		pg5.addVertex("Mallory", "accountAgent");
+		pg5.addVertex("Alice", "accountAgent");
+		pg5.addVertex("Carol", "accountAgent");
+		pg5.addVertex("SCE", "nodeAgent");
+		pg5.addVertex("SalaryM", "dataEntity");
+		pg5.addVertex("KeyM", "keyEntity");
+		pg5.addVertex("SalaryA", "dataEntity");
+		pg5.addVertex("KeyA", "keyEntity");
+		pg5.addVertex("SalaryC", "dataEntity");
+		pg5.addVertex("KeyC", "keyEntity");
+		pg5.addVertex("AverageContract", "contractEntity");
+		pg5.addVertex("KeySCE", "keyEntity");
+		pg5.addVertex("Average", "Activity");
+		pg5.addVertex("AverageSalary", "dataEntity");
+		pg5.addEdge("SalaryM", "wasAttributedTo", "Mallory");
+		pg5.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg5.addEdge("SalaryC", "wasAttributedTo", "Carol");
+		pg5.addEdge("KeyM", "wasAttributedTo", "Mallory");
+		pg5.addEdge("KeyA", "wasAttributedTo", "Alice");
+		pg5.addEdge("KeyC", "wasAttributedTo", "Carol");
+		pg5.addEdge("AverageContract", "wasAttributedTo", "SCE");
+		pg5.addEdge("KeySCE", "wasAttributedTo", "SCE");
+		pg5.addEdge("SCE", "actedOnBehalfOf", "Carol");
+		pg5.addEdge("Average", "used", "SalaryM");
+		pg5.addEdge("Average", "used", "KeyM");
+		pg5.addEdge("Average", "used", "SalaryA");
+		pg5.addEdge("Average", "used", "KeyA");
+		pg5.addEdge("Average", "used", "SalaryC");
+		pg5.addEdge("Average", "used", "KeyC");
+		pg5.addEdge("Average", "used", "AverageContract");
+		pg5.addEdge("Average", "used", "KeySCE");
+		pg5.addEdge("Average", "wasAssociatedWith", "SCE");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyM");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryA");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyA");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryC");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyC");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "AverageContract");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeySCE");
+		pg5.addEdge("AverageSalary", "wasGeneratedBy", "Average");
+		pg5.addEdge("AverageSalary", "wasAttributedTo", "Bob");
+		pg5.addEdge("AverageSalary", "wasAttributedTo", "SCE");
+
+		Policy p = parsePolicy(file);
+
+		if(!checkIncompletePolicy(p)) {
+			boolean r1 = p.evaluate(pg1);
+			boolean r2 = p.evaluate(pg2);
+			boolean r3 = p.evaluate(pg3);
+			boolean r4 = p.evaluate(pg4);
+			boolean r5 = p.evaluate(pg5);
+			List<String> errors = new ArrayList<>();
+
+			if(!r1) {
+				errors.add("1s");
+			}
+			if(!r2) {
+				errors.add("2s");
+			}
+			if(r3) {
+				errors.add("3v");
+			}
+			if(!r4) {
+				errors.add("4s");
+			}
+			if(r5) {
+				errors.add("5v");
+			}
+
+			if(!errors.isEmpty()) {
+				System.out.print("Incorrect: ");
+				for(String s: errors) {
+					System.out.print(s + ",");
+				}
+				System.out.println();
+			}else {
+				System.out.println("Correct");
+			}
+
+		}else {
+			System.out.println("Incomplete");
+		}
+	}
+
+	public static void task3(String file) {
+
+		//create provenance graphs
+		ProvenanceGraph pg1 = new ProvenanceGraph();
+		pg1.addVertex("Average", "activity");
+		pg1.addVertex("KeyB", "keyEntity");
+		pg1.addVertex("Bob", "accountAgent");
+		pg1.addEdge("Average", "used", "KeyB");
+		pg1.addEdge("KeyB", "wasAttributedTo", "Bob");
+
+		ProvenanceGraph pg2 = new ProvenanceGraph();
+		pg2.addVertex("Average", "activity");
+		pg2.addVertex("KeyB", "keyEntity");
+		pg2.addVertex("Bob", "accountAgent");
+		pg2.addVertex("KeyA", "keyEntity");
+		pg2.addVertex("Alice", "accountAgent");
+		pg2.addEdge("Average", "used", "KeyB");
+		pg2.addEdge("KeyB", "wasAttributedTo", "Bob");
+		pg2.addEdge("Average", "used", "KeyA");
+		pg2.addEdge("KeyA", "wasAttributedTo", "Alice");
+
+		ProvenanceGraph pg3 = new ProvenanceGraph();
+		pg3.addVertex("Average", "activity");
+		pg3.addVertex("KeyB", "keyEntity");
+		pg3.addVertex("Alice", "accountAgent");
+		pg2.addEdge("Average", "used", "KeyB");
+		pg2.addEdge("KeyB", "wasAttributedTo", "Alice");
+
+		ProvenanceGraph pg4 = new ProvenanceGraph();
+		pg4.addVertex("Mallory", "accountAgent");
+		pg4.addVertex("Alice", "accountAgent");
+		pg4.addVertex("Bob", "accountAgent");
+		pg4.addVertex("SCE", "nodeAgent");
+		pg4.addVertex("SalaryM", "dataEntity");
+		pg4.addVertex("KeyM", "keyEntity");
+		pg4.addVertex("SalaryA", "dataEntity");
+		pg4.addVertex("KeyA", "keyEntity");
+		pg4.addVertex("SalaryB", "dataEntity");
+		pg4.addVertex("KeyB", "keyEntity");
+		pg4.addVertex("AverageContract", "contractEntity");
+		pg4.addVertex("KeySCE", "keyEntity");
+		pg4.addVertex("Average", "Activity");
+		pg4.addVertex("AverageSalary", "dataEntity");
+		pg4.addEdge("SalaryM", "wasAttributedTo", "Mallory");
+		pg4.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg4.addEdge("SalaryB", "wasAttributedTo", "Bob");
+		pg4.addEdge("KeyM", "wasAttributedTo", "Mallory");
+		pg4.addEdge("KeyA", "wasAttributedTo", "Alice");
+		pg4.addEdge("KeyB", "wasAttributedTo", "Bob");
+		pg4.addEdge("AverageContract", "wasAttributedTo", "SCE");
+		pg4.addEdge("KeySCE", "wasAttributedTo", "SCE");
+		pg4.addEdge("SCE", "actedOnBehalfOf", "Bob");
+		pg4.addEdge("Average", "used", "SalaryM");
+		pg4.addEdge("Average", "used", "KeyM");
+		pg4.addEdge("Average", "used", "SalaryA");
+		pg4.addEdge("Average", "used", "KeyA");
+		pg4.addEdge("Average", "used", "SalaryB");
+		pg4.addEdge("Average", "used", "KeyB");
+		pg4.addEdge("Average", "used", "AverageContract");
+		pg4.addEdge("Average", "used", "KeySCE");
+		pg4.addEdge("Average", "wasAssociatedWith", "SCE");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyM");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryA");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyA");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryB");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyB");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "AverageContract");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeySCE");
+		pg4.addEdge("AverageSalary", "wasGeneratedBy", "Average");
+		pg4.addEdge("AverageSalary", "wasAttributedTo", "Bob");
+		pg4.addEdge("AverageSalary", "wasAttributedTo", "SCE");
+
+		ProvenanceGraph pg5 = new ProvenanceGraph();
+		pg5.addVertex("Mallory", "accountAgent");
+		pg5.addVertex("Alice", "accountAgent");
+		pg5.addVertex("Carol", "accountAgent");
+		pg5.addVertex("SCE", "nodeAgent");
+		pg5.addVertex("SalaryM", "dataEntity");
+		pg5.addVertex("KeyM", "keyEntity");
+		pg5.addVertex("SalaryA", "dataEntity");
+		pg5.addVertex("KeyA", "keyEntity");
+		pg5.addVertex("SalaryC", "dataEntity");
+		pg5.addVertex("KeyC", "keyEntity");
+		pg5.addVertex("AverageContract", "contractEntity");
+		pg5.addVertex("KeySCE", "keyEntity");
+		pg5.addVertex("Average", "Activity");
+		pg5.addVertex("AverageSalary", "dataEntity");
+		pg5.addEdge("SalaryM", "wasAttributedTo", "Mallory");
+		pg5.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg5.addEdge("SalaryC", "wasAttributedTo", "Carol");
+		pg5.addEdge("KeyM", "wasAttributedTo", "Mallory");
+		pg5.addEdge("KeyA", "wasAttributedTo", "Alice");
+		pg5.addEdge("KeyC", "wasAttributedTo", "Carol");
+		pg5.addEdge("AverageContract", "wasAttributedTo", "SCE");
+		pg5.addEdge("KeySCE", "wasAttributedTo", "SCE");
+		pg5.addEdge("SCE", "actedOnBehalfOf", "Carol");
+		pg5.addEdge("Average", "used", "SalaryM");
+		pg5.addEdge("Average", "used", "KeyM");
+		pg5.addEdge("Average", "used", "SalaryA");
+		pg5.addEdge("Average", "used", "KeyA");
+		pg5.addEdge("Average", "used", "SalaryC");
+		pg5.addEdge("Average", "used", "KeyC");
+		pg5.addEdge("Average", "used", "AverageContract");
+		pg5.addEdge("Average", "used", "KeySCE");
+		pg5.addEdge("Average", "wasAssociatedWith", "SCE");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyM");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryA");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyA");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryC");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyC");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "AverageContract");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeySCE");
+		pg5.addEdge("AverageSalary", "wasGeneratedBy", "Average");
+		pg5.addEdge("AverageSalary", "wasAttributedTo", "Bob");
+		pg5.addEdge("AverageSalary", "wasAttributedTo", "SCE");
+
+		Policy p = parsePolicy(file);
+
+		if(!checkIncompletePolicy(p)) {
+			boolean r1 = p.evaluate(pg1);
+			boolean r2 = p.evaluate(pg2);
+			boolean r3 = p.evaluate(pg3);
+			boolean r4 = p.evaluate(pg4);
+			boolean r5 = p.evaluate(pg5);
+			List<String> errors = new ArrayList<>();
+
+			if(!r1) {
+				errors.add("1s");
+			}
+			if(!r2) {
+				errors.add("2s");
+			}
+			if(r3) {
+				errors.add("3v");
+			}
+			if(!r4) {
+				errors.add("4s");
+			}
+			if(r5) {
+				errors.add("5v");
+			}
+
+			if(!errors.isEmpty()) {
+				System.out.print("Incorrect: ");
+				for(String s: errors) {
+					System.out.print(s + ",");
+				}
+				System.out.println();
+			}else {
+				System.out.println("Correct");
+			}
+
+		}else {
+			System.out.println("Incomplete");
+		}
+	}
+
+	public static void task4(String file) {
+
+		//create provenance graphs
+		ProvenanceGraph pg1 = new ProvenanceGraph();
+		pg1.addVertex("AverageSalary", "dataEntity");
+		pg1.addVertex("SalaryC", "dataEntity");
+		pg1.addVertex("SalaryD", "dataEntity");
+		pg1.addEdge("AverageSalary", "wasDerivedFrom", "SalaryC");
+		pg1.addEdge("AverageSalary", "wasDerivedFrom", "SalaryD");
+
+		ProvenanceGraph pg2 = new ProvenanceGraph();
+		pg2.addVertex("AverageSalary", "dataEntity");
+		pg2.addVertex("SalaryB", "dataEntity");
+		pg2.addVertex("SalaryM", "dataEntity");
+		pg2.addEdge("AverageSalary", "wasDerivedFrom", "SalaryB");
+		pg2.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+
+		ProvenanceGraph pg3 = new ProvenanceGraph();
+		pg3.addVertex("KeyB", "keyEntity");
+		pg3.addVertex("AverageSalary", "dataEntity");
+		pg3.addVertex("Average", "activity");
+		pg3.addEdge("AverageSalary", "wasGeneratedBy", "Activity");
+		pg3.addEdge("Average", "used", "KeyB");
+
+		ProvenanceGraph pg4 = new ProvenanceGraph();
+		pg4.addVertex("Mallory", "accountAgent");
+		pg4.addVertex("Alice", "accountAgent");
+		pg4.addVertex("Bob", "accountAgent");
+		pg4.addVertex("SCE", "nodeAgent");
+		pg4.addVertex("SalaryM", "dataEntity");
+		pg4.addVertex("KeyM", "keyEntity");
+		pg4.addVertex("SalaryA", "dataEntity");
+		pg4.addVertex("KeyA", "keyEntity");
+		pg4.addVertex("SalaryB", "dataEntity");
+		pg4.addVertex("KeyB", "keyEntity");
+		pg4.addVertex("AverageContract", "contractEntity");
+		pg4.addVertex("KeySCE", "keyEntity");
+		pg4.addVertex("Average", "Activity");
+		pg4.addVertex("AverageSalary", "dataEntity");
+		pg4.addEdge("SalaryM", "wasAttributedTo", "Mallory");
+		pg4.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg4.addEdge("SalaryB", "wasAttributedTo", "Bob");
+		pg4.addEdge("KeyM", "wasAttributedTo", "Mallory");
+		pg4.addEdge("KeyA", "wasAttributedTo", "Alice");
+		pg4.addEdge("KeyB", "wasAttributedTo", "Bob");
+		pg4.addEdge("AverageContract", "wasAttributedTo", "SCE");
+		pg4.addEdge("KeySCE", "wasAttributedTo", "SCE");
+		pg4.addEdge("SCE", "actedOnBehalfOf", "Bob");
+		pg4.addEdge("Average", "used", "SalaryM");
+		pg4.addEdge("Average", "used", "KeyM");
+		pg4.addEdge("Average", "used", "SalaryA");
+		pg4.addEdge("Average", "used", "KeyA");
+		pg4.addEdge("Average", "used", "SalaryB");
+		pg4.addEdge("Average", "used", "KeyB");
+		pg4.addEdge("Average", "used", "AverageContract");
+		pg4.addEdge("Average", "used", "KeySCE");
+		pg4.addEdge("Average", "wasAssociatedWith", "SCE");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyM");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryA");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyA");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryB");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyB");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "AverageContract");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeySCE");
+		pg4.addEdge("AverageSalary", "wasGeneratedBy", "Average");
+		pg4.addEdge("AverageSalary", "wasAttributedTo", "Bob");
+		pg4.addEdge("AverageSalary", "wasAttributedTo", "SCE");
+
+		ProvenanceGraph pg5 = new ProvenanceGraph();
+		pg5.addVertex("Mallory", "accountAgent");
+		pg5.addVertex("Alice", "accountAgent");
+		pg5.addVertex("Bob", "accountAgent");
+		pg5.addVertex("SCE", "nodeAgent");
+		pg5.addVertex("SalaryM", "dataEntity");
+		pg5.addVertex("KeyM", "keyEntity");
+		pg5.addVertex("SalaryA", "dataEntity");
+		pg5.addVertex("KeyA", "keyEntity");
+		pg5.addVertex("KeyB", "keyEntity");
+		pg5.addVertex("AverageContract", "contractEntity");
+		pg5.addVertex("KeySCE", "keyEntity");
+		pg5.addVertex("Average", "Activity");
+		pg5.addVertex("AverageSalary", "dataEntity");
+		pg5.addEdge("SalaryM", "wasAttributedTo", "Mallory");
+		pg5.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg5.addEdge("KeyM", "wasAttributedTo", "Mallory");
+		pg5.addEdge("KeyA", "wasAttributedTo", "Alice");
+		pg5.addEdge("KeyB", "wasAttributedTo", "Bob");
+		pg5.addEdge("AverageContract", "wasAttributedTo", "SCE");
+		pg5.addEdge("KeySCE", "wasAttributedTo", "SCE");
+		pg5.addEdge("SCE", "actedOnBehalfOf", "Bob");
+		pg5.addEdge("Average", "used", "SalaryM");
+		pg5.addEdge("Average", "used", "KeyM");
+		pg5.addEdge("Average", "used", "SalaryA");
+		pg5.addEdge("Average", "used", "KeyA");
+		pg5.addEdge("Average", "used", "KeyB");
+		pg5.addEdge("Average", "used", "AverageContract");
+		pg5.addEdge("Average", "used", "KeySCE");
+		pg5.addEdge("Average", "wasAssociatedWith", "SCE");
+		pg5.addEdge("AverageSalary", "wasGeneratedBy", "Average");
+		pg5.addEdge("AverageSalary", "wasAttributedTo", "Bob");
+		pg5.addEdge("AverageSalary", "wasAttributedTo", "SCE");
+
+		Policy p = parsePolicy(file);
+
+		if(!checkIncompletePolicy(p)) {
+			boolean r1 = p.evaluate(pg1);
+			boolean r2 = p.evaluate(pg2);
+			boolean r3 = p.evaluate(pg3);
+			boolean r4 = p.evaluate(pg4);
+			boolean r5 = p.evaluate(pg5);
+			List<String> errors = new ArrayList<>();
+
+			if(!r1) {
+				errors.add("1s");
+			}
+			if(!r2) {
+				errors.add("2s");
+			}
+			if(r3) {
+				errors.add("3v");
+			}
+			if(!r4) {
+				errors.add("4s");
+			}
+			if(r5) {
+				errors.add("5v");
+			}
+
+			if(!errors.isEmpty()) {
+				System.out.print("Incorrect: ");
+				for(String s: errors) {
+					System.out.print(s + ",");
+				}
+				System.out.println();
+			}else {
+				System.out.println("Correct");
+			}
+
+		}else {
+			System.out.println("Incomplete");
+		}
+	}
+
+	public static void task5(String file) {
+
+		//create provenance graphs
+		ProvenanceGraph pg1 = new ProvenanceGraph();
+		pg1.addVertex("Average", "activity");
+		pg1.addVertex("SalaryB", "dataEntity");
+		pg1.addVertex("Bob", "accountAgent");
+		pg1.addEdge("Average", "used", "SalaryB");
+		pg1.addEdge("SalaryB", "wasAttributedTo", "Bob");
+
+		ProvenanceGraph pg2 = new ProvenanceGraph();
+		pg2.addVertex("Average", "activity");
+		pg2.addVertex("SalaryB", "dataEntity");
+		pg2.addVertex("SalaryA", "dataEntity");
+		pg2.addVertex("Bob", "accountAgent");
+		pg2.addVertex("Alice", "accountAgent");
+		pg2.addEdge("Average", "used", "SalaryB");
+		pg2.addEdge("Average", "used", "SalaryA");
+		pg2.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg2.addEdge("SalaryB", "wasAttributedTo", "Bob");
+
+		ProvenanceGraph pg3 = new ProvenanceGraph();
+		pg3.addVertex("Average", "activity");
+		pg3.addVertex("SalaryB", "dataEntity");
+		pg3.addVertex("SalaryC", "dataEntity");
+		pg3.addVertex("Bob", "accountAgent");
+		pg3.addVertex("Carol", "accountAgent");
+		pg3.addEdge("Average", "used", "SalaryB");
+		pg3.addEdge("Average", "used", "SalaryC");
+		pg3.addEdge("SalaryC", "wasAttributedTo", "Carol");
+		pg3.addEdge("SalaryB", "wasAttributedTo", "Bob");
+
+		ProvenanceGraph pg4 = new ProvenanceGraph();
+		pg4.addVertex("Mallory", "accountAgent");
+		pg4.addVertex("Alice", "accountAgent");
+		pg4.addVertex("Bob", "accountAgent");
+		pg4.addVertex("SCE", "nodeAgent");
+		pg4.addVertex("SalaryM", "dataEntity");
+		pg4.addVertex("KeyM", "keyEntity");
+		pg4.addVertex("SalaryA", "dataEntity");
+		pg4.addVertex("KeyA", "keyEntity");
+		pg4.addVertex("SalaryB", "dataEntity");
+		pg4.addVertex("KeyB", "keyEntity");
+		pg4.addVertex("AverageContract", "contractEntity");
+		pg4.addVertex("KeySCE", "keyEntity");
+		pg4.addVertex("Average", "Activity");
+		pg4.addVertex("AverageSalary", "dataEntity");
+		pg4.addEdge("SalaryM", "wasAttributedTo", "Mallory");
+		pg4.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg4.addEdge("SalaryB", "wasAttributedTo", "Bob");
+		pg4.addEdge("KeyM", "wasAttributedTo", "Mallory");
+		pg4.addEdge("KeyA", "wasAttributedTo", "Alice");
+		pg4.addEdge("KeyB", "wasAttributedTo", "Bob");
+		pg4.addEdge("AverageContract", "wasAttributedTo", "SCE");
+		pg4.addEdge("KeySCE", "wasAttributedTo", "SCE");
+		pg4.addEdge("SCE", "actedOnBehalfOf", "Bob");
+		pg4.addEdge("Average", "used", "SalaryM");
+		pg4.addEdge("Average", "used", "KeyM");
+		pg4.addEdge("Average", "used", "SalaryA");
+		pg4.addEdge("Average", "used", "KeyA");
+		pg4.addEdge("Average", "used", "SalaryB");
+		pg4.addEdge("Average", "used", "KeyB");
+		pg4.addEdge("Average", "used", "AverageContract");
+		pg4.addEdge("Average", "used", "KeySCE");
+		pg4.addEdge("Average", "wasAssociatedWith", "SCE");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyM");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryA");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyA");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "SalaryB");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeyB");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "AverageContract");
+		pg4.addEdge("AverageSalary", "wasDerivedFrom", "KeySCE");
+		pg4.addEdge("AverageSalary", "wasGeneratedBy", "Average");
+		pg4.addEdge("AverageSalary", "wasAttributedTo", "Bob");
+		pg4.addEdge("AverageSalary", "wasAttributedTo", "SCE");
+
+		ProvenanceGraph pg5 = new ProvenanceGraph();
+		pg5.addVertex("Mallory", "accountAgent");
+		pg5.addVertex("Alice", "accountAgent");
+		pg5.addVertex("Carol", "accountAgent");
+		pg5.addVertex("SCE", "nodeAgent");
+		pg5.addVertex("SalaryM", "dataEntity");
+		pg5.addVertex("KeyM", "keyEntity");
+		pg5.addVertex("SalaryA", "dataEntity");
+		pg5.addVertex("KeyA", "keyEntity");
+		pg5.addVertex("SalaryC", "dataEntity");
+		pg5.addVertex("KeyC", "keyEntity");
+		pg5.addVertex("AverageContract", "contractEntity");
+		pg5.addVertex("KeySCE", "keyEntity");
+		pg5.addVertex("Average", "Activity");
+		pg5.addVertex("AverageSalary", "dataEntity");
+		pg5.addEdge("SalaryM", "wasAttributedTo", "Mallory");
+		pg5.addEdge("SalaryA", "wasAttributedTo", "Alice");
+		pg5.addEdge("SalaryC", "wasAttributedTo", "Carol");
+		pg5.addEdge("KeyM", "wasAttributedTo", "Mallory");
+		pg5.addEdge("KeyA", "wasAttributedTo", "Alice");
+		pg5.addEdge("KeyC", "wasAttributedTo", "Carol");
+		pg5.addEdge("AverageContract", "wasAttributedTo", "SCE");
+		pg5.addEdge("KeySCE", "wasAttributedTo", "SCE");
+		pg5.addEdge("SCE", "actedOnBehalfOf", "Carol");
+		pg5.addEdge("Average", "used", "SalaryM");
+		pg5.addEdge("Average", "used", "KeyM");
+		pg5.addEdge("Average", "used", "SalaryA");
+		pg5.addEdge("Average", "used", "KeyA");
+		pg5.addEdge("Average", "used", "SalaryC");
+		pg5.addEdge("Average", "used", "KeyC");
+		pg5.addEdge("Average", "used", "AverageContract");
+		pg5.addEdge("Average", "used", "KeySCE");
+		pg5.addEdge("Average", "wasAssociatedWith", "SCE");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryM");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyM");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryA");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyA");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "SalaryC");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeyC");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "AverageContract");
+		pg5.addEdge("AverageSalary", "wasDerivedFrom", "KeySCE");
+		pg5.addEdge("AverageSalary", "wasGeneratedBy", "Average");
+		pg5.addEdge("AverageSalary", "wasAttributedTo", "Bob");
+		pg5.addEdge("AverageSalary", "wasAttributedTo", "SCE");
+
+		Policy p = parsePolicy(file);
+
+		if(!checkIncompletePolicy(p)) {
+			boolean r1 = p.evaluate(pg1);
+			boolean r2 = p.evaluate(pg2);
+			boolean r3 = p.evaluate(pg3);
+			boolean r4 = p.evaluate(pg4);
+			boolean r5 = p.evaluate(pg5);
+			List<String> errors = new ArrayList<>();
+
+			if(!r1) {
+				errors.add("1s");
+			}
+			if(!r2) {
+				errors.add("2s");
+			}
+			if(r3) {
+				errors.add("3v");
+			}
+			if(!r4) {
+				errors.add("4s");
+			}
+			if(r5) {
+				errors.add("5v");
+			}
+
+			if(!errors.isEmpty()) {
+				System.out.print("Incorrect: ");
+				for(String s: errors) {
+					System.out.print(s + ",");
+				}
+				System.out.println();
+			}else {
+				System.out.println("Correct");
+			}
+
+		}else {
+			System.out.println("Incomplete");
+		}
+	}
+
+	public static void task6(String file) {
+
+		//create provenance graphs
+		ProvenanceGraph pg1 = new ProvenanceGraph();
+		pg1.addVertex("Students#usf", "dataEntity");
+		pg1.addVertex("Registrar#usf", "accountAgent");
+		pg1.addEdge("Students#usf", "wasAttributedTo", "Registrar#usf");
+
+		ProvenanceGraph pg2 = new ProvenanceGraph();
+		pg2.addVertex("CareerFairAttendees#org", "dataEntity");
+		pg2.addVertex("Sgx#intel", "nodeAgent");
+		pg2.addEdge("CareerFairAttendees#org", "wasAttributedTo", "Sgx#intel");
+
+		ProvenanceGraph pg3 = new ProvenanceGraph();
+		pg3.addVertex("CareerFairAttendees#org", "dataEntity");
+		pg3.addVertex("Filter", "activity");
+		pg3.addEdge("Filter", "used", "CareerFairAttendees#org");
+
+		ProvenanceGraph pg4 = new ProvenanceGraph();
+		pg4.addVertex("Students#usf", "dataEntity");
+		pg4.addVertex("CareerFairAttendees#org", "dataEntity");
+		pg4.addVertex("FilterContract", "contractEntity");
+		pg4.addVertex("Filter", "activity");
+		pg4.addVertex("Sgx#intel","nodeAgent");
+		pg4.addVertex("Filtered#org", "dataEntity");
+		pg4.addVertex("Recruiter#org", "accountAgent");
+		pg4.addVertex("Registrar#usf", "accountAgent");
+		pg4.addEdge("Filtered#org", "wasGeneratedBy", "Filter");
+		pg4.addEdge("Filtered#org", "wasDerivedFrom", "Students#usf");
+		pg4.addEdge("Filtered#org", "wasDerivedFrom", "CareerFairAttendees#org");
+		pg4.addEdge("Filtered#org", "wasDerivedFrom", "FilterContract");
+		pg4.addEdge("Filtered#org", "wasAttributedTo", "Sgx#intel");
+		pg4.addEdge("Filtered#org", "wasAttributedTo", "Recruiter#org");
+		pg4.addEdge("Filter", "wasAssociatedWith", "Sgx#intel");
+		pg4.addEdge("Filter", "used", "FilterContract");
+		pg4.addEdge("Filter", "used", "CareerFairAttendees#org");
+		pg4.addEdge("Filter", "used", "Students#usf");
+		pg4.addEdge("Students#usf", "wasAttributedTo", "Registrar#usf");
+		pg4.addEdge("FilterContract", "wasAttributedTo", "Sgx#intel");
+		pg4.addEdge("Sgx#intel", "actedOnBehalfOf", "Recruiter#org");
+
+		ProvenanceGraph pg5 = new ProvenanceGraph();
+		pg5.addVertex("Students#usf", "dataEntity");
+		pg5.addVertex("CareerFairAttendees#org", "dataEntity");
+		pg5.addVertex("FilterContract", "contractEntity");
+		pg5.addVertex("Filter", "activity");
+		pg5.addVertex("Sgx#intel","nodeAgent");
+		pg5.addVertex("Filtered#org", "dataEntity");
+		pg5.addVertex("Recruiter#org", "accountAgent");
+		pg5.addVertex("Registrar#usf", "accountAgent");
+		pg5.addEdge("Filtered#org", "wasGeneratedBy", "Filter");
+		pg5.addEdge("Filtered#org", "wasDerivedFrom", "Students#usf");
+		pg5.addEdge("Filtered#org", "wasDerivedFrom", "CareerFairAttendees#org");
+		pg5.addEdge("Filtered#org", "wasDerivedFrom", "FilterContract");
+		pg5.addEdge("Filtered#org", "wasAttributedTo", "Sgx#intel");
+		pg5.addEdge("Filtered#org", "wasAttributedTo", "Recruiter#org");
+		pg5.addEdge("Filter", "wasAssociatedWith", "Sgx#intel");
+		pg5.addEdge("Filter", "used", "FilterContract");
+		pg5.addEdge("Filter", "used", "CareerFairAttendees#org");
+		pg5.addEdge("Filter", "used", "Students#usf");
+		pg5.addEdge("Students#usf", "wasAttributedTo", "Registrar#usf");
+		pg5.addEdge("CareerFairAttendees#org", "wasAttributedTo", "Recruiter#org");
+		pg5.addEdge("FilterContract", "wasAttributedTo", "Sgx#intel");
+		pg5.addEdge("Sgx#intel", "actedOnBehalfOf", "Recruiter#org");
+
+		Policy p = parsePolicy(file);
+
+		if(!checkIncompletePolicy(p)) {
+			boolean r1 = p.evaluate(pg1);
+			boolean r2 = p.evaluate(pg2);
+			boolean r3 = p.evaluate(pg3);
+			boolean r4 = p.evaluate(pg4);
+			boolean r5 = p.evaluate(pg5);
+			List<String> errors = new ArrayList<>();
+
+			if(!r1) {
+				errors.add("1s");
+			}
+			if(!r2) {
+				errors.add("2s");
+			}
+			if(r3) {
+				errors.add("3v");
+			}
+			if(r4) {
+				errors.add("4v");
+			}
+			if(!r5) {
+				errors.add("5s");
+			}
+
+			if(!errors.isEmpty()) {
+				System.out.print("Incorrect: ");
+				for(String s: errors) {
+					System.out.print(s + ",");
+				}
+				System.out.println();
+			}else {
+				System.out.println("Correct");
+			}
+
+		}else {
+			System.out.println("Incomplete");
+		}
+	}
+
+	public static void task7(String file) {
+
+		//create provenance graphs
+		ProvenanceGraph pg1 = new ProvenanceGraph();
+		pg1.addVertex("CareerFairAttendees#org", "dataEntity");
+		pg1.addVertex("Filtered#org", "dataEntity");
+		pg1.addVertex("Recruiter#org", "accountAgent");
+		pg1.addEdge("Filtered#org", "wasDerivedFrom", "CareerFairAttendees#org");
+		pg1.addEdge("CareerFairAttendees#org", "wasAttributedTo", "Recruiter#org");
+
+		ProvenanceGraph pg2 = new ProvenanceGraph();
+		pg2.addVertex("CareerFairAttendees#org", "dataEntity");
+		pg2.addVertex("Filtered#org", "dataEntity");
+		pg2.addVertex("Recruiter#org", "accountAgent");
+		pg2.addVertex("Students#hcc", "dataEntity");
+		pg2.addVertex("Registrar#hcc", "accountAgent");
+		pg2.addEdge("Filtered#org", "wasDerivedFrom", "CareerFairAttendees#org");
+		pg2.addEdge("CareerFairAttendees#org", "wasAttributedTo", "Recruiter#org");
+		pg2.addEdge("Filtered#org", "wasDerivedFrom", "Students#hcc");
+		pg2.addEdge("Students#hcc", "wasAttributedTo", "Registrar#hcc");
+
+		ProvenanceGraph pg3 = new ProvenanceGraph();
+		pg3.addVertex("CareerFairAttendees#org", "dataEntity");
+		pg3.addVertex("Filtered#org", "dataEntity");
+		pg3.addVertex("Recruiter#org", "accountAgent");
+		pg3.addVertex("Students#usf", "dataEntity");
+		pg3.addVertex("Registrar#usf", "accountAgent");
+		pg3.addEdge("Filtered#org", "wasDerivedFrom", "CareerFairAttendees#org");
+		pg3.addEdge("CareerFairAttendees#org", "wasAttributedTo", "Recruiter#org");
+		pg3.addEdge("Filtered#org", "wasDerivedFrom", "Students#usf");
+		pg3.addEdge("Students#usf", "wasAttributedTo", "Registrar#usf");
+
+		ProvenanceGraph pg4 = new ProvenanceGraph();
+		pg4.addVertex("Students#usf", "dataEntity");
+		pg4.addVertex("CareerFairAttendees#org", "dataEntity");
+		pg4.addVertex("FilterContract", "contractEntity");
+		pg4.addVertex("Filter", "activity");
+		pg4.addVertex("Sgx#intel","nodeAgent");
+		pg4.addVertex("Filtered#org", "dataEntity");
+		pg4.addVertex("Recruiter#org", "accountAgent");
+		pg4.addVertex("Registrar#usf", "accountAgent");
+		pg4.addEdge("Filtered#org", "wasGeneratedBy", "Filter");
+		pg4.addEdge("Filtered#org", "wasDerivedFrom", "Students#usf");
+		pg4.addEdge("Filtered#org", "wasDerivedFrom", "CareerFairAttendees#org");
+		pg4.addEdge("Filtered#org", "wasDerivedFrom", "FilterContract");
+		pg4.addEdge("Filtered#org", "wasAttributedTo", "Sgx#intel");
+		pg4.addEdge("Filtered#org", "wasAttributedTo", "Recruiter#org");
+		pg4.addEdge("Filter", "wasAssociatedWith", "Sgx#intel");
+		pg4.addEdge("Filter", "used", "FilterContract");
+		pg4.addEdge("Filter", "used", "CareerFairAttendees#org");
+		pg4.addEdge("Filter", "used", "Students#usf");
+		pg4.addEdge("Students#usf", "wasAttributedTo", "Registrar#usf");
+		pg4.addEdge("CareerFairAttendees#org", "wasAttributedTo", "Recruiter#org");
+		pg4.addEdge("FilterContract", "wasAttributedTo", "Sgx#intel");
+		pg4.addEdge("Sgx#intel", "actedOnBehalfOf", "Recruiter#org");
+
+		ProvenanceGraph pg5 = new ProvenanceGraph();
+		pg5.addVertex("Students#hcc", "dataEntity");
+		pg5.addVertex("CareerFairAttendees#org", "dataEntity");
+		pg5.addVertex("FilterContract", "contractEntity");
+		pg5.addVertex("Filter", "activity");
+		pg5.addVertex("Sgx#intel","nodeAgent");
+		pg5.addVertex("Filtered#org", "dataEntity");
+		pg5.addVertex("Recruiter#org", "accountAgent");
+		pg5.addVertex("Registrar#hcc", "accountAgent");
+		pg5.addEdge("Filtered#org", "wasGeneratedBy", "Filter");
+		pg5.addEdge("Filtered#org", "wasDerivedFrom", "Students#hcc");
+		pg5.addEdge("Filtered#org", "wasDerivedFrom", "FilterContract");
+		pg5.addEdge("Filtered#org", "wasAttributedTo", "Sgx#intel");
+		pg5.addEdge("Filtered#org", "wasAttributedTo", "Recruiter#org");
+		pg5.addEdge("Filter", "wasAssociatedWith", "Sgx#intel");
+		pg5.addEdge("Filter", "used", "FilterContract");
+		pg5.addEdge("Filter", "used", "CareerFairAttendees#org");
+		pg5.addEdge("Filter", "used", "Students#hcc");
+		pg5.addEdge("Students#hcc", "wasAttributedTo", "Registrar#hcc");
+		pg5.addEdge("CareerFairAttendees#org", "wasAttributedTo", "Recruiter#org");
+		pg5.addEdge("FilterContract", "wasAttributedTo", "Sgx#intel");
+		pg5.addEdge("Sgx#intel", "actedOnBehalfOf", "Recruiter#org");
+
+		Policy p = parsePolicy(file);
+
+		if(!checkIncompletePolicy(p)) {
+			boolean r1 = p.evaluate(pg1);
+			boolean r2 = p.evaluate(pg2);
+			boolean r3 = p.evaluate(pg3);
+			boolean r4 = p.evaluate(pg4);
+			boolean r5 = p.evaluate(pg5);
+			List<String> errors = new ArrayList<>();
+
+			if(!r1) {
+				errors.add("1s");
+			}
+			if(r2) {
+				errors.add("2v");
+			}
+			if(!r3) {
+				errors.add("3s");
+			}
+			if(!r4) {
+				errors.add("4s");
+			}
+			if(r5) {
+				errors.add("5v");
+			}
+
+			if(!errors.isEmpty()) {
+				System.out.print("Incorrect: ");
+				for(String s: errors) {
+					System.out.print(s + ",");
+				}
+				System.out.println();
+			}else {
+				System.out.println("Correct");
+			}
+
+		}else {
+			System.out.println("Incomplete");
+		}
+	}
+
+	public static boolean checkIncompletePolicy(Policy p) {
+		if(p instanceof EdgePolicy) {
+			if(((EdgePolicy)p).getSrc() == null || ((EdgePolicy)p).getDst() == null){
+				return true;
+			}
+		}else if(p instanceof NegationPolicy) {
+			return checkIncompletePolicy(((NegationPolicy)p).getPolicy());
+		}else if(p instanceof BinaryPolicy) {
+			return checkIncompletePolicy(((BinaryPolicy)p).getLeftPolicy()) && checkIncompletePolicy(((BinaryPolicy)p).getRightPolicy());
+		}else if(p instanceof QuantifiedPolicy) {
+			if(((QuantifiedPolicy)p).getVariable() == null || ((QuantifiedPolicy)p).getType() == null) {
+				return true;
+			}
+			return checkIncompletePolicy(((QuantifiedPolicy)p).getPolicy());
+		}else if(p == null) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public static Policy parsePolicy(String file) {
+		//JSON parser object to parse read file
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode root = null;
+		try {
+			root = mapper.readTree(new File(file));
+		}catch(JsonProcessingException e){
+			System.out.println(e);
+			System.exit(-1);
+		}
+		catch(IOException e){
+			System.out.println(e);
+			System.exit(-1);
+		}
+
+		try {
+			return handlePolicy(root);
+		}catch(NullPointerException e)
+		{
+			System.out.println("Incomplete");
+			System.exit(-1);
+			return new EdgePolicy("", "", "");
+		}
+	}
+
+	public static Policy handlePolicy(JsonNode node){
+		String type = node.get("nodeType").asText();
+
+		if(type.equals("EdgePolicy"))
+		{
+			String relation = node.get("relation").asText();
+			String src = node.get("src").asText();
+			String dst = node.get("dst").asText();
+			return new EdgePolicy(relation, src, dst);
+		}
+		else if(type.equals("NegationPolicy"))
+		{
+			return new NegationPolicy(handlePolicy(node.get("policy")));
+		}
+		else if(type.equals("BinaryPolicy"))
+		{
+			return new BinaryPolicy(handlePolicy(node.get("leftPolicy")), node.get("operator").asText(), handlePolicy(node.get("rightPolicy")));
+		}
+		else if(type.equals("QuantifiedPolicy"))
+		{
+			return new QuantifiedPolicy(node.get("quantifier").asText(), node.get("variable").asText(), node.get("type").asText(), handlePolicy(node.get("policy")));
+		}
+		else{
+			System.out.println("Incomplete");
+			System.exit(-1);
+			return new NegationPolicy();
+		}
+	}
+
+}
