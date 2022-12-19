@@ -59,23 +59,23 @@ The following files are included:
 
 | ![ACDC Povenance Data Model](./additional-images-and-tables/acdc-prov-model.png?raw=true "ACDC Povenance Data Model") | 
 |:----:| 
-| **Additional Figure 1: Illustration of the ACDC Povenance Data Model** |
+| **Additional Figure 2: Illustration of the ACDC Povenance Data Model** |
 
 ---
 
 |**Step-by-step illustration of the selection process for the policy example in Section 3**|
 |:----:|
 | ![Step 1](./additional-images-and-tables/forall-exists-policy-selected.png?raw=true "Step 1") |  
-| **Additional Figure 2: Selection of an existential (exists) policy after universal policy** |
+| **Additional Figure 3: Selection of an existential (exists) policy after universal policy** |
 | ![Step 2](./additional-images-and-tables/forall-exists-wat-policy-selected.png?raw=true "Step 2") |  
-| **Additional Figure 3: Selection of an edge wasAttributedTo policy after existential policy** |
+| **Additional Figure 4: Selection of an edge wasAttributedTo policy after existential policy** |
 | ![Step 3](./additional-images-and-tables/forall-exists-wat-nodes-policy-selected.png?raw=true "Step 3") | 
-| **Additional Figure 4: Selection of nodes for edge policy** |
+| **Additional Figure 5: Selection of nodes for edge policy** |
 
 ---
 
 | ![Rego Interface](./additional-images-and-tables/rego_interface.png?raw=true "Rego Interface") | 
 |:----:| 
-| **Additional Figure 1: Rego Interface Main Window with the solution for Task 1** |
+| **Additional Figure 6: Rego Interface Main Window with the solution for Task 1** |
 
 ---
